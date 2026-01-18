@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>SK Dashboard | Transparency Portal</title>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet'>
+    <style>
+        body { background-color: #f4f6f9; }
+        .card-box { border-radius: 15px; }
+        .section { background: #fff; padding: 25px; border-radius: 15px; margin-bottom: 30px; }
+        .section h4 { border-left: 5px solid #0d6efd; padding-left: 10px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<nav class='navbar navbar-dark bg-primary'>
+    <div class='container-fluid'>
+        <span class='navbar-brand'>SK Transparency Dashboard</span>
+        <a href='/logout' class='btn btn-light btn-sm'>Logout</a>
+    </div>
+</nav>
+
+<div class='container my-4'>
+
+    <!-- SUMMARY CARDS -->
+    <div class='row mb-4'>
+        <div class='col-md-3'>
+            <div class='card card-box text-center p-3'>
+                <h6>Total Budget</h6>
+                <h4>₱{{ summary.total_budget }}</h4>
+            </div>
+        </div>
+        <div class='col-md-3'>
+            <div class='card card-box text-center p-3'>
+                <h6>Utilized</h6>
+                <h4>₱{{ summary.utilized }}</h4>
+            </div>
+        </div>
+        <div class='col-md-3'>
+            <div class='card card-box text-center p-3'>
+                <h6>Active Projects</h6>
+                <h4>{{ summary.projects }}</h4>
+            </div>
+        </div>
+        <div class='col-md-3'>
+            <div class='card card-box text-center p-3'>
+                <h6>Youth Population</h6>
+                <h4>{{ summary.youth_total }}</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- SK BUDGET -->
+    <div class='section'>
+        <h4>SK Budget Overview</h4>
+        <table class='table table-bordered'>
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Total</th>
+                    <th>Utilized</th>
+                    <th>Remaining</th>
+                    <th>Report</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in budgets %}
+                <tr>
+                    <td>{{ b.year }}</td>
+                    <td>₱{{ b.total_budget }}</td>
+                    <td>₱{{ b.utilized }}</td>
+                    <td>₱{{ b.remaining }}</td>
+                    <td>
+                        {% if b.report_file %}
+                        <a href='{{ b.report_file }}' class='btn btn-sm btn-primary'>View</a>
+                        {% else %}
+                        <span class='text-muted'>N/A</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class='section'>
+        <h4>SK Projects & Activities</h4>
+        <div class='row'>
+            {% for p in projects %}
+            <div class='col-md-4 mb-3'>
+                <div class='card h-100'>
+                    <div class='card-body'>
+                        <h5>{{ p.title }}</h5>
+                        <span class='badge bg-info'>{{ p.status }}</span>
+                        <p class='mt-2'>Cost: ₱{{ p.cost }}</p>
+                        <p>Timeline: {{ p.start_date }} – {{ p.end_date }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- ORDINANCES -->
+    <div class='section'>
+        <h4>SK Ordinances & Resolutions</h4>
+        <ul class='list-group'>
+            {% for o in ordinances %}
+            <li class='list-group-item'>
+                <strong>{{ o.ordinance_no }}</strong> – {{ o.title }}
+                <span class='float-end'>{{ o.date_approved }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- YOUTH PROGRAMS -->
+    <div class='section'>
+        <h4>Youth Programs & Services</h4>
+        <table class='table'>
+            <thead>
+                <tr>
+                    <th>Program</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for y in programs %}
+                <tr>
+                    <td>{{ y.name }}</td>
+                    <td>{{ y.type }}</td>
+                    <td>
+                        <span class='badge bg-success'>{{ y.status }}</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SK OFFICIALS -->
+    <div class='section'>
+        <h4>SK Officials</h4>
+        <table class='table table-striped'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Committee</th>
+                    <th>Contact</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in officials %}
+                <tr>
+                    <td>{{ s.name }}</td>
+                    <td>{{ s.position }}</td>
+                    <td>{{ s.committee }}</td>
+                    <td>{{ s.contact }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ANNOUNCEMENTS -->
+    <div class='section'>
+        <h4>Community Announcements</h4>
+        {% for a in announcements %}
+        <div class='alert alert-warning'>
+            <strong>{{ a.title }}</strong><br>
+            {{ a.message }}<br>
+            <small>{{ a.event_date }}</small>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- COA EXPORT -->
+    <div class='section'>
+        <h4>COA Audit-Ready Reports ⭐</h4>
+        <p>Export organized financial data for COA auditing.</p>
+        <a href='/coa/export' class='btn btn-success'>Export COA Report</a>
+    </div>
+
+</div>
+
+</body>
+</html>
