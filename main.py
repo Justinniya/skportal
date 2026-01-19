@@ -13,6 +13,7 @@ def get_db():
         user=Config.DB_USER,
         password=Config.DB_PASSWORD,
         database=Config.DB_NAME,
+        port=3306,
         cursorclass=Config.DB_CURSORCLASS
     )
 #--------- Main ----------
