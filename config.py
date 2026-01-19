@@ -1,8 +1,10 @@
+import pymysql
+
 class Config:
     SECRET_KEY = 'skportal_secret_key'
 
-    MYSQL_HOST = 'localhost'
-    MYSQL_USER = 'root'
-    MYSQL_PASSWORD = ''
-    MYSQL_DB = 'sk_portal'
-    MYSQL_CURSORCLASS = 'DictCursor'
+    DB_HOST = 'localhost'
+    DB_USER = 'root'
+    DB_PASSWORD = ''
+    DB_NAME = 'sk_portal'
+    DB_CURSORCLASS = pymysql.cursors.DictCursor

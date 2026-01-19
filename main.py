@@ -1,11 +1,20 @@
-from flask import Flask, render_template, request, redirect, url_for, session,flash
-from flask_mysqldb import MySQL
+from flask import Flask, render_template, request, redirect, url_for, session, flash
+import pymysql
 from config import Config
 
-app = Flask(__name__)
-app.config.from_object(Config)
+pymysql.install_as_MySQLdb()
 
-mysql = MySQL(app)
+app = Flask(__name__)
+app.config['SECRET_KEY'] = Config.SECRET_KEY
+
+def get_db():
+    return pymysql.connect(
+        host=Config.DB_HOST,
+        user=Config.DB_USER,
+        password=Config.DB_PASSWORD,
+        database=Config.DB_NAME,
+        cursorclass=Config.DB_CURSORCLASS
+    )
 #--------- Main ----------
 @app.route('/')
 def home():
@@ -18,7 +27,8 @@ def login():
       username = request.form['username']
       password = request.form['password']
 
-      cur = mysql.connection.cursor()
+      conn = get_db()
+      cur = conn.cursor()
       cur.execute(
          'SELECT * FROM users WHERE username=%s AND status=1',
          (username,)
@@ -69,7 +79,8 @@ def admin_dashboard():
    if session['session']['role'] != 'admin':
         return redirect(url_for('home'))
    
-   cur = mysql.connection.cursor()
+   conn = get_db()
+   cur = conn.cursor()
    cur.execute("SELECT COUNT(*) AS total FROM projects")
    total_projects = cur.fetchone()['total']
 
