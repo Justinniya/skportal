@@ -86,7 +86,7 @@
             {% endif %}
         {% endwith %}
 
-        <form method='POST' action='/login' autocomplete='off'>
+        <form method='POST' action='{{ url_for("login")}}' autocomplete='off'>
 
             <div class='mb-3'>
                 <label class='form-label'>Username</label>
