@@ -72,8 +72,19 @@ def dashboard():
    return redirect(url_for('viewers_dashboard'))
 
 
+@app.route('/projects')
+def projects():
+   if 'session' not in session:
+      return redirect(url_for('home'))
+   return render_template("admin/projects.html")
 
-#-----admin------
+@app.route("/projects/add", methods=["GET", "POST"])
+def add_project():
+   if 'session' not in session:
+      return redirect(url_for('home'))
+   return render_template("admin/add_project.html")
+
+
 
 @app.route('/admin/')
 def admin_dashboard():
@@ -94,7 +105,6 @@ def admin_dashboard():
    cur.execute("SELECT IFNULL(SUM(utilized_amount),0) AS total FROM budgets")
    budget_utilized = cur.fetchone()['total']
 
-   # Recent projects with budget
    cur.execute("""
       SELECT p.id, p.title, p.status,p.brgy, p.start_date, p.end_date,
             IFNULL(b.allocated_amount,0) AS budget
@@ -103,7 +113,7 @@ def admin_dashboard():
       ORDER BY p.id DESC
       LIMIT 10
    """)
-   projects = cur.fetchall()  # Already list of dicts
+   projects = cur.fetchall()  
 
    cur.close()
 
@@ -115,6 +125,8 @@ def admin_dashboard():
       budget_utilized=budget_utilized,
       projects=projects
    )
+
+
 
 #-----sk officials------
 @app.route('/officials/')

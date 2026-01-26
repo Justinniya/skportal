@@ -1,134 +1,202 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 <head>
-    <meta charset='UTF-8'>
-    <title>SK Portal | Login</title>
+  <meta charset="UTF-8" />
+  <title>SK Portal | Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet'>
-    <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css' rel='stylesheet'>
+  <style>
+    :root {
+      --primary: #1d4ed8;   /* SK Blue */
+      --secondary: #dc2626; /* SK Red */
+      --text: #1e3a8a;      /* Deep Blue for text */
+      --muted: #6b7280;
+      --glass: rgba(255,255,255,.78);
+      --shadow: 0 18px 45px rgba(0,0,0,.18);
+    }
 
-    <style>
-        body {
-            background: linear-gradient(135deg, #0d6efd, #1e3c72);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Segoe UI', sans-serif;
-        }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background:
+        linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+        url("static/img/bg.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+    }
 
-        .login-card {
-            width: 100%;
-            max-width: 420px;
-            border-radius: 16px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-            animation: fadeIn 0.6s ease-in-out;
-        }
+    .login-card {
+      width: 100%;
+      max-width: 450px;
+      background: white;
+      border-radius: 22px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 10px;
+    }
 
-        .login-header {
-            background-color: #0d6efd;
-            color: #fff;
-            border-radius: 16px 16px 0 0;
-            text-align: center;
-            padding: 25px 20px;
-        }
+    .title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #1e3a8a;
+      margin: 0;
+    }
 
-        .login-header h4 {
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
+    .subtitle {
+      font-size: .9rem;
+      color: #1e3a8a;
+      margin: 0 0 20px;
+    }
 
-        .form-control:focus {
-            border-color: #0d6efd;
-            box-shadow: 0 0 0 0.15rem rgba(13,110,253,.25);
-        }
+    .login-box {
+      text-align: left;
+      margin-top: 15px;
+    }
 
-        .btn-primary {
-            padding: 10px;
-            font-weight: 500;
-        }
+    .login-box h4 {
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+      font-size: 1.05rem;
+    }
 
-        .security-note {
-            font-size: 0.85rem;
-        }
-    </style>
+    .login-box p {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .input-group-text {
+      background: #eff6ff;
+      border-right: 0;
+      color: var(--primary);
+    }
+
+    .form-control {
+      border-left: 0;
+      font-size: .85rem;
+      padding: 10px;
+    }
+
+    .form-control:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 .15rem rgba(220,38,38,.25);
+    }
+
+    .btn-login {
+      background: var(--secondary);
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: .85rem;
+      letter-spacing: .3px;
+      width: 100%;
+    }
+
+    .btn-login:hover {
+      box-shadow: 0 10px 22px rgba(118, 143, 255, 0.45);
+      transform: translateY(-1px);
+      background-color: #1d4ed8;
+      color : white;
+    }
+
+    .security-note {
+      font-size: .65rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 14px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .login-card {
+        padding: 22px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class='card login-card'>
-    <div class='login-header'>
-        <h4>Sangguniang Kabataan</h4>
-        <small>Project & Budget Transparency Portal</small>
-    </div>
+  <div class="login-card">
 
-    <div class='card-body p-4'>
+  
+    <img src="static/img/logo.png" alt="SK Logo" class="logo">
+    <h1 class="title">SK Portal</h1>
+    <p class="subtitle">Secure portal for SK officials and barangay services</p>
 
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class='alert alert-danger alert-dismissible fade show'>
-                    <i class='bi bi-exclamation-triangle-fill'></i>
-                    {{ messages[0] }}
-                    <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
-                </div>
-            {% endif %}
-        {% endwith %}
+ 
+    <div class="login-box" >
+      <h4 style ="text-align: center;">Sign In</h4>
+      <p style ="text-align: center;">Enter your official credentials</p>
 
-        <form method='POST' action='{{ url_for("login")}}' autocomplete='off'>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-danger alert-dismissible fade show">
+            <i class="bi bi-exclamation-triangle-fill"></i> {{ messages[0] }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        {% endif %}
+      {% endwith %}
 
-            <div class='mb-3'>
-                <label class='form-label'>Username</label>
-                <div class='input-group'>
-                    <span class='input-group-text'><i class='bi bi-person-fill'></i></span>
-                    <input type='text' name='username' class='form-control' required>
-                </div>
-            </div>
-
-            <div class='mb-3'>
-                <label class='form-label'>Password</label>
-                <div class='input-group'>
-                    <span class='input-group-text'><i class='bi bi-lock-fill'></i></span>
-                    <input type='password' name='password' id='password' class='form-control' required>
-                    <button type='button' class='btn btn-outline-secondary' onclick='togglePassword()'>
-                        <i class='bi bi-eye'></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class='d-grid mt-4'>
-                <button class='btn btn-primary'>
-                    <i class='bi bi-box-arrow-in-right'></i> Login
-                </button>
-            </div>
-        </form>
-
-        <div class='text-center mt-4'>
-            <small class='text-muted security-note'>
-                Authorized SK Officials and Stakeholders Only
-            </small>
+      <form method="POST" action="{{ url_for('login') }}" autocomplete="off">
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input type="text" name="username" class="form-control" required>
+          </div>
         </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input type="password" name="password" id="password" class="form-control" required>
+            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="togglePassword()">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <button class="btn btn-login text-white">Sign In</button>
+      </form>
+
+      <div class="security-note">Authorized SK Officials Only</div>
     </div>
-</div>
 
-<script>
+  </div>
+
+  <script>
     function togglePassword() {
-        const password = document.getElementById('password')
-        password.type = password.type === 'password' ? 'text' : 'password'
+      const password = document.getElementById("password");
+      password.type = password.type === "password" ? "text" : "password";
     }
-</script>
+  </script>
 
-<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

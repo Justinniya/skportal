@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+
+{% block page_title %}Projects{% endblock %}
+{% block page_desc %}Manage all projects and track progress{% endblock %}
+
+{% block content %}
+
+<style>
+  /* ===== FILTERS ===== */
+  .filters .form-control,
+  .filters .form-select {
+    border-radius: 12px;
+    height: 44px;
+  }
+
+  /* ===== PROJECT CARD ===== */
+  .project-card {
+    border: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 35px rgba(0,0,0,0.12);
+  }
+
+  .project-cover {
+    height: 170px;
+    width: 100%;
+    object-fit: cover;
+    background: #e5e7eb;
+  }
+
+  .project-body {
+    padding: 16px;
+  }
+
+  .project-body h5 {
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .status {
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: capitalize;
+  }
+
+  .status.ongoing {
+    background: #e0f2fe;
+    color: #0369a1;
+  }
+
+  .status.completed {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  .status.pending {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  .action-icons i {
+    font-size: 1.15rem;
+    cursor: pointer;
+    margin-right: 12px;
+  }
+</style>
+
+<!-- ================= FILTER BAR ================= -->
+<div class="row g-2 align-items-center mb-4 filters">
+
+  <!-- LEFT: SEARCH + FILTERS -->
+  <div class="col-12 col-lg">
+    <div class="d-flex gap-2 flex-wrap">
+
+      <input type="text"
+             class="form-control"
+             placeholder="Search projects…"
+             style="max-width: 220px;">
+
+      <select class="form-select" style="max-width: 180px;">
+        <option>All Status</option>
+        <option>Ongoing</option>
+        <option>Completed</option>
+        <option>Pending</option>
+      </select>
+
+      <select class="form-select" style="max-width: 200px;">
+        <option>All Barangays</option>
+        <option>Brgy 1</option>
+        <option>Brgy 2</option>
+        <option>Brgy 3</option>
+      </select>
+
+    </div>
+  </div>
+
+  <!-- RIGHT: ADD BUTTON -->
+  <div class="col-12 col-lg-auto text-lg-end">
+    <a href="/projects/add" class="btn btn-primary w-100 w-lg-auto">
+      <i class="bi bi-plus-lg"></i> Add Project
+    </a>
+  </div>
+
+</div>
+
+<!-- ================= PROJECT CARDS ================= -->
+<div class="row g-4">
+
+  <!-- PROJECT CARD 1 -->
+  <div class="col-md-6 col-lg-4">
+    <div class="project-card">
+
+      <img src="{{ url_for('static', filename='img/default_project.png') }}"
+           class="project-cover"
+           alt="Project Cover">
+
+      <div class="project-body">
+        <h5>Barangay Road Repair</h5>
+        <small class="text-muted">Brgy 1</small>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <span class="status ongoing">Ongoing</span>
+          <strong>₱120,000</strong>
+        </div>
+
+        <p class="text-muted mt-2 mb-3">
+          Jan 10, 2025 – Mar 20, 2025
+        </p>
+
+        <div class="action-icons">
+          <i class="bi bi-eye-fill text-success"></i>
+          <i class="bi bi-pencil-fill text-primary"></i>
+          <i class="bi bi-trash-fill text-danger"></i>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PROJECT CARD 2 -->
+  <div class="col-md-6 col-lg-4">
+    <div class="project-card">
+
+      <img src="{{ url_for('static', filename='img/default_project.png') }}"
+           class="project-cover"
+           alt="Project Cover">
+
+      <div class="project-body">
+        <h5>Youth Sports Program</h5>
+        <small class="text-muted">Brgy 2</small>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <span class="status completed">Completed</span>
+          <strong>₱85,000</strong>
+        </div>
+
+        <p class="text-muted mt-2 mb-3">
+          Aug 01, 2024 – Nov 15, 2024
+        </p>
+
+        <div class="action-icons">
+          <i class="bi bi-eye-fill text-success"></i>
+          <i class="bi bi-pencil-fill text-primary"></i>
+          <i class="bi bi-trash-fill text-danger"></i>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PROJECT CARD 3 -->
+  <div class="col-md-6 col-lg-4">
+    <div class="project-card">
+
+      <img src="{{ url_for('static', filename='img/default_project.png') }}"
+           class="project-cover"
+           alt="Project Cover">
+
+      <div class="project-body">
+        <h5>Community Clean-Up Drive</h5>
+        <small class="text-muted">Brgy 3</small>
+
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <span class="status pending">Pending</span>
+          <strong>₱30,000</strong>
+        </div>
+
+        <p class="text-muted mt-2 mb-3">
+          Apr 05, 2025 – Apr 20, 2025
+        </p>
+
+        <div class="action-icons">
+          <i class="bi bi-eye-fill text-success"></i>
+          <i class="bi bi-pencil-fill text-primary"></i>
+          <i class="bi bi-trash-fill text-danger"></i>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+ 
+</div>
+
+{% endblock %}

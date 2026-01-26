@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+{% block page_title %}Add Project{% endblock %}
+{% block page_desc %}Create a new barangay project{% endblock %}
+
+{% block content %}
+
+<style>
+  .form-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  }
+
+  .form-card .card-header {
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .form-title {
+    font-weight: 800;
+    color: #111827;
+  }
+
+  .form-label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.9rem;
+  }
+
+  .form-control,
+  .form-select {
+    border-radius: 12px;
+    height: 42px;
+    border: 1px solid #d1d5db;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-size: 0.95rem;
+  }
+
+  /* ONLY RED BORDER ON HOVER/FOCUS */
+  .form-control:hover,
+  .form-select:hover {
+    border-color: #dc2626;
+  }
+
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 0.2rem rgba(220, 38, 38, 0.18);
+    outline: none;
+  }
+
+  textarea.form-control {
+    min-height: 100px;
+  }
+
+  .cover-preview {
+    width: 100%;
+    height: 160px;
+    border-radius: 12px;
+    object-fit: cover;
+    background: #e5e7eb;
+    display: none;
+    margin-bottom: 10px;
+  }
+
+  .btn-save {
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-weight: 700;
+  }
+
+  .btn-cancel {
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-weight: 600;
+  }
+
+  /* TWO COLUMN LAYOUT */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .full-col {
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 768px) {
+    .two-col {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="row justify-content-center">
+  <div class="col-lg-10">
+
+    <div class="card form-card">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="form-title mb-0">
+              <i class="bi bi-folder-plus me-2"></i> Project Information
+            </h5>
+           
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body p-4">
+
+        <form method="POST" enctype="multipart/form-data">
+
+          <div class="two-col">
+
+            <!-- LEFT COLUMN -->
+            <div>
+              <label class="form-label">Project Title</label>
+              <input type="text" class="form-control mb-3" name="title" required>
+
+              <label class="form-label">Barangay</label>
+              <select class="form-select mb-3" name="brgy" required>
+                <option value="">Select Barangay</option>
+                <option>Brgy 1</option>
+                <option>Brgy 2</option>
+                <option>Brgy 3</option>
+              </select>
+
+              <label class="form-label">Start Date</label>
+              <input type="date" class="form-control mb-3" name="start_date" required>
+
+              <label class="form-label">Budget (₱)</label>
+              <input type="number" class="form-control mb-3" name="budget" required>
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div>
+              <label class="form-label">Status</label>
+              <select class="form-select mb-3" name="status" required>
+                <option value="">Select Status</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="completed">Completed</option>
+                <option value="pending">Pending</option>
+              </select>
+
+              <label class="form-label">End Date</label>
+              <input type="date" class="form-control mb-3" name="end_date">
+
+              <label class="form-label">Project Description</label>
+              <textarea class="form-control mb-3" name="description"></textarea>
+            </div>
+
+            <!-- COVER PHOTO (FULL WIDTH) -->
+            <div class="full-col">
+              <label class="form-label">Cover Photo</label>
+              <img id="coverPreview" class="cover-preview">
+              <input type="file"
+                     class="form-control"
+                     name="cover_photo"
+                     accept="image/*"
+                     onchange="previewCover(event)">
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2 mt-3">
+            <a href="/projects" class="btn btn-light btn-cancel">
+              Cancel
+            </a>
+
+            <button type="submit" class="btn btn-primary btn-save">
+              <i class="bi bi-save"></i> Save Project
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function previewCover(event) {
+    const img = document.getElementById('coverPreview');
+    img.src = URL.createObjectURL(event.target.files[0]);
+    img.style.display = 'block';
+  }
+</script>
+
+{% endblock %}

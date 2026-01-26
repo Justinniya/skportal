@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}SK Portal{% endblock %}</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --blue: #1d4ed8;
+      --red: #dc2626;
+      --white: #ffffff;
+      --text: #1e3a8a;
+      --muted: #6b7280;
+      --bg: #f7f8fb;
+      --sidebar: #1e3a8a;
+    }
+
+    body{
+      background: var(--bg);
+      font-family: 'Segoe UI', sans-serif;
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar{
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      width: 260px;
+      background: var(--sidebar);
+      color: white;
+      padding: 22px 18px;
+      overflow-y: auto;
+    }
+
+    .brand{
+      display: flex;
+      align-items: left;
+      justify-content: left;
+      gap: 10px;
+      margin-bottom: 22px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .brand img{
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: white;
+      padding: 4px;
+    }
+
+    .brand h4{
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .brand small{
+      display: block;
+      color: rgba(255,255,255,0.7);
+      margin-top: 2px;
+    }
+
+   
+
+    
+
+    .sidebar a{
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      margin-bottom: 8px;
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+
+    .sidebar a:hover{
+      background: rgba(255,255,255,0.18);
+    }
+
+    .sidebar a.active{
+      background: white;
+      color: var(--sidebar);
+      font-weight: 800;
+    }
+
+    .sidebar a.active i{
+      color: var(--sidebar);
+    }
+
+    /* Main */
+    .main{
+      margin-left: 260px;
+      padding: 24px;
+    }
+
+    .topbar{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .topbar h3{
+      margin: 0;
+      font-weight: 900;
+      color: var(--sidebar);
+      letter-spacing: 0.5px;
+    }
+
+    .topbar .user{
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Cards */
+    .card{
+      border: 0;
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .card-header{
+      background: var(--white);
+      border-bottom: 0;
+      font-weight: 700;
+      color: var(--sidebar);
+      border-radius: 14px 14px 0 0;
+    }
+
+    .card h6{
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .card h3{
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .card.p-3{
+      padding: 1.2rem !important;
+    }
+
+    /* TABLE */
+    .table{
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .table thead th{
+      background: var(--sidebar);
+      color: #fff;
+      border: 0;
+      font-weight: 700;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd){
+      background: #f1f5ff;
+    }
+
+    .table-striped tbody tr:hover{
+      background: #e0f2fe;
+    }
+
+    .table td, .table th{
+      vertical-align: middle;
+      border-top: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px){
+      .sidebar{
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+
+      .main{
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="brand">
+      <img src="/static/img/logo.png" alt="SK Logo">
+      <div>
+        <h4>SK PORTAL</h4>
+        <small>Admin Panel</small>
+      </div>
+    </div>
+
+    <!-- USER PROFILE -->
+    
+
+    <a href="{{ url_for('admin_dashboard') }}" class="{% if active == 'dashboard' %}active{% endif %}">
+      <i class="bi bi-speedometer2"></i> Dashboard
+    </a>
+
+    <a href="/projects" class="{% if active == 'projects' %}active{% endif %}">
+      <i class="bi bi-folder2-open"></i> Projects
+    </a>
+
+    <a href="/budgets" class="{% if active == 'budgets' %}active{% endif %}">
+      <i class="bi bi-wallet2"></i> Budgets
+    </a>
+
+    <a href="/users" class="{% if active == 'users' %}active{% endif %}">
+      <i class="bi bi-people-fill"></i> Users
+    </a>
+
+    <a href="/reports" class="{% if active == 'reports' %}active{% endif %}">
+      <i class="bi bi-file-earmark-text"></i> Reports
+    </a>
+
+    <a href="/logout">
+      <i class="bi bi-box-arrow-right"></i> Logout
+    </a>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <h3>Good Day!</h3>
+        <p class="text-muted">{% block page_desc %}Admin overview{% endblock %}</p>
+      </div>
+
+      <div class="user">
+        Logged in as: <strong>{{ session['session']['username'] }}</strong>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    {% block content %}{% endblock %}
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
